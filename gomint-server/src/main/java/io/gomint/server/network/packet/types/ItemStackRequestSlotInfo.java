@@ -11,34 +11,48 @@ import io.gomint.jraknet.PacketBuffer;
 
 public class ItemStackRequestSlotInfo {
 
-    private byte windowId;
     private byte slot;
+    private byte hotbarSlot;
     private int itemStackId;
+    private String customName;
 
+    /**
+     * Deserialize packet data from buffer.
+     * 
+     * @param buffer PacketBuffer containing data
+     * @param protocolID Protocol version (not used but kept for compatibility)
+     * @throws Exception If deserialization fails
+     */
     public void deserialize(PacketBuffer buffer, int protocolID) throws Exception {
-        this.windowId = buffer.readByte();
         this.slot = buffer.readByte();
+        this.hotbarSlot = buffer.readByte();
         this.itemStackId = buffer.readSignedVarInt();
-    }
-
-    public byte getWindowId() {
-        return this.windowId;
+        this.customName = buffer.readString();
     }
 
     public byte getSlot() {
         return this.slot;
     }
 
+    public byte getHotbarSlot() {
+        return this.hotbarSlot;
+    }
+
     public int getItemStackId() {
         return this.itemStackId;
+    }
+
+    public String getCustomName() {
+        return this.customName;
     }
 
     @Override
     public String toString() {
         return "{\"_class\":\"ItemStackRequestSlotInfo\", " +
-            "\"windowId\":\"" + this.windowId + "\"" + ", " +
-            "\"slot\":\"" + this.slot + "\"" + ", " +
-            "\"itemStackId\":\"" + this.itemStackId + "\"" +
+            "\"slot\":\"" + this.slot + "\", " +
+            "\"hotbarSlot\":\"" + this.hotbarSlot + "\", " +
+            "\"itemStackId\":\"" + this.itemStackId + "\", " +
+            "\"customName\":\"" + this.customName + "\"" +
             "}";
     }
 
