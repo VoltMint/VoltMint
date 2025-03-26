@@ -59,8 +59,8 @@ public final class Protocol {
     // MC:PE Protocol ID
     public static final int MINECRAFT_PE_BETA_PROTOCOL_VERSION = -1;
     public static final int MINECRAFT_PE_NEXT_STABLE_PROTOCOL_VERSION = -1;
-    public static final int MINECRAFT_PE_PROTOCOL_VERSION = 422;
-    public static final String MINECRAFT_PE_NETWORK_VERSION = "1.16.200";
+    public static final int MINECRAFT_PE_PROTOCOL_VERSION = 786;
+    public static final String MINECRAFT_PE_NETWORK_VERSION = "1.21.70";
 
     // ========================================= PACKET IDS ========================================= //
     public static final byte BATCH_MAGIC = (byte) 0xfe;
