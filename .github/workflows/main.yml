@@ -24,3 +24,9 @@ jobs:
         run: |
           mkdir -p ./release/modules
           cp -r ./gomint-server/target/modules/* ./release/modules/
+
+      - name: Upload artifact
+        uses: actions/upload-artifacts@v4
+        with:
+          name: builds
+          path: ./release
