@@ -196,10 +196,6 @@ public class PacketInventoryTransaction extends Packet {
             this.slot = buffer.readUnsignedVarInt();
             this.oldItem = readItemStack( buffer );
             this.newItem = readItemStack( buffer );
-
-            if (hasItemstackID) {
-                this.newItemStackID = buffer.readSignedVarInt();
-            }
         }
 
         public int getSourceType() {
