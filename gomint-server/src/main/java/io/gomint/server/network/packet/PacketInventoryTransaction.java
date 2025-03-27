@@ -48,7 +48,6 @@ public class PacketInventoryTransaction extends Packet {
     // New request id and changes slot (1.16)
     private int requestId;
     private ChangeSlot[] changeSlot;
-    private boolean hasItemstackIDs;
 
     /**
      * Construct a new packet
@@ -75,14 +74,13 @@ public class PacketInventoryTransaction extends Packet {
         }
 
         this.type = buffer.readUnsignedVarInt();
-        this.hasItemstackIDs = buffer.readBoolean();
 
         // Read transaction action(s)
         int actionCount = buffer.readUnsignedVarInt();
         this.actions = new NetworkTransaction[actionCount];
         for ( int i = 0; i < actionCount; i++ ) {
             NetworkTransaction networkTransaction = new NetworkTransaction();
-            networkTransaction.deserialize( buffer, this.hasItemstackIDs );
+            networkTransaction.deserialize( buffer );
             this.actions[i] = networkTransaction;
         }
 
