@@ -392,14 +392,6 @@ public class PacketInventoryTransaction extends Packet {
         this.changeSlot = changeSlot;
     }
 
-    public boolean isHasItemstackIDs() {
-        return this.hasItemstackIDs;
-    }
-
-    public void setHasItemstackIDs(boolean hasItemstackIDs) {
-        this.hasItemstackIDs = hasItemstackIDs;
-    }
-
     @Override
     public String toString() {
         return "PacketInventoryTransaction{" +
@@ -418,7 +410,6 @@ public class PacketInventoryTransaction extends Packet {
             ", vector2=" + this.vector2 +
             ", requestId=" + this.requestId +
             ", changeSlot=" + Arrays.toString(this.changeSlot) +
-            ", hasItemstackIDs=" + this.hasItemstackIDs +
             '}';
     }
 }
