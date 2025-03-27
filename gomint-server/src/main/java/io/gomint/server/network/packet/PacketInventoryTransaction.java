@@ -175,7 +175,7 @@ public class PacketInventoryTransaction extends Packet {
          *
          * @param buffer Data from the packet
          */
-        public void deserialize( PacketBuffer buffer, boolean hasItemstackID ) {
+        public void deserialize( PacketBuffer buffer ) {
             this.sourceType = buffer.readUnsignedVarInt();
 
             switch ( this.sourceType ) {
