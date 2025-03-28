@@ -1,25 +1,23 @@
-<img src=".github/ASSETS/maintenance.png" width="902" alt="GoMint is no longer actively maintained.">
-
-<img src=".github/ASSETS/gomint-logo-with-text.svg" width="512" alt="GoMint">
+<img src=".github/ASSETS/voltmint-logo-with-text.svg" width="512" alt="VoltMint">
 
 <!-- BUILD BADGE -->
-<a href="https://github.com/GoMint/GoMint/actions?query=workflow%3A%22Java+CI%22">
-  <img alt="Build Status" src="https://github.com/GoMint/GoMint/workflows/Java%20CI/badge.svg">
+<a href="https://github.com/VoltMint/VoltMint/actions?query=workflow%3A%22CI%22">
+  <img alt="Build Status" src="https://github.com/VoltMint/VoltMint/workflows/CI/badge.svg">
 </a>
 
 <!-- STAR BADGE -->
-<a href="https://github.com/GoMint/GoMint/stargazers">
-  <img alt="GitHub Stars" src="https://img.shields.io/github/stars/GoMint/GoMint.svg">
+<a href="https://github.com/VoltMint/VoltMint/stargazers">
+  <img alt="GitHub Stars" src="https://img.shields.io/github/stars/VoltMint/VoltMint.svg">
 </a>
 
 <!-- ISSUES BADGE -->
-<a href="https://github.com/GoMint/GoMint/issues">
-  <img alt="GitHub Stars" src="https://img.shields.io/github/issues/GoMint/GoMint.svg">
+<a href="https://github.com/VoltMint/VoltMint/issues">
+  <img alt="GitHub Stars" src="https://img.shields.io/github/issues/VoltMint/VoltMint.svg">
 </a>
 
 <!-- VERSION BADGE -->
-<a href="https://github.com/GoMint/GoMint">
-  <img alt="GitHub Stars" src="https://img.shields.io/badge/version-1.0.5-green.svg">
+<a href="https://github.com/VoltMint/VoltMint/releases">
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-green.svg">
 </a>
 
 <!-- LICENSE BADGE -->
