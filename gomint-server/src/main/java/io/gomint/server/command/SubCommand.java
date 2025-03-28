@@ -76,7 +76,7 @@ public class SubCommand extends Command {
      * @param player for which we need this sub command
      * @return null when no sub commands apply, a holder when they apply
      */
-    CommandHolder createHolder( io.gomint.server.entity.EntityPlayer player ) {
+    CommandHolder createHolhder( io.gomint.server.entity.EntityPlayer player ) {
         List<CommandOverload> overloads = new ArrayList<>();
 
         for ( Map.Entry<String, CommandHolder> entry : this.subCommands.entrySet() ) {
