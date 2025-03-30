@@ -25,9 +25,35 @@ def get_installation_token():
     response = requests.post(url, headers=headers)
     return response.json().get("token")
 
+def check_build_status():
+    with open("build.log", "r") as log_file:
+        log_content = log_file.read()
+        return "BUILD FAILURE" in log_content
+
+def extract_error_logs():
+    with open("build.log", "r") as log_file:
+        lines = log_file.readlines()
+
+    error_logs = []
+    capture = False
+
+    for line in lines:
+        if "BUILD FAILURE" in line:
+            capture = True
+        if capture:
+            error_logs.append(line)
+
+    # Gabungkan error log dan batasi panjang agar tidak terlalu besar
+    error_message = "".join(error_logs).strip()
+    return f"```\n{error_message[:3000]}\n```" if error_message else "No error details found."
+
 def create_issue():
+    if not check_build_status():
+        print("Build succeeded, no issue created.")
+        return
+
     title = "Build Failed: mvn clean package"
-    body = ""  # No description
+    body = extract_error_logs()  # Masukkan log error ke dalam issue
 
     token = get_installation_token()
     issue_url = f"https://api.github.com/repos/{REPO}/issues"
@@ -43,8 +69,12 @@ def create_issue():
             requests.post(labels_url, headers=headers, json={"name": label, "color": "d73a4a"})
 
     issue_data = {"title": title, "body": body, "labels": labels_to_add}
-    requests.post(issue_url, headers=headers, json=issue_data)
-    print(f"Issue '{title}' created!")
+    response = requests.post(issue_url, headers=headers, json=issue_data)
+
+    if response.status_code == 201:
+        print(f"Issue '{title}' created successfully!")
+    else:
+        print(f"Failed to create issue: {response.text}")
 
 if __name__ == "__main__":
     create_issue()
