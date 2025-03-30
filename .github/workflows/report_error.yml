@@ -28,7 +28,7 @@ jobs:
         run: mvn clean package > build.log 2>&1 || echo "BUILD_FAILED" >> $GITHUB_ENV
 
       - name: Report Build Failure
-        if: env.BUILD_FAILED == 'BUILD_FAILED'
+        if: env.BUILD_FAILED == 'true'
         env:
           GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
           GH_APP_ID: ${{ secrets.GH_APP_ID }}
