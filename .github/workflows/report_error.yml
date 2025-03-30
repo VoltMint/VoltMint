@@ -25,7 +25,7 @@ jobs:
 
       - name: Build Project
         id: build
-        run: mvn clean package > build.log 2>&1 || echo "BUILD_FAILED" >> $GITHUB_ENV
+        run: mvn clean package > build.log 2>&1 || echo "BUILD_FAILED=true" >> $GITHUB_ENV
 
       - name: Report Build Failure
         if: env.BUILD_FAILED == 'true'
