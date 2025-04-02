@@ -231,10 +231,10 @@ public class PacketPlayerActionHandler implements PacketHandler<PacketPlayerActi
     }
 
     private void handleBreakStart( PlayerConnection connection, long currentTimeMillis, PacketPlayerAction packet ) {
-        connection.entity().breakVector( packet.getPosition() );
+        connection.entity().breakVector( packet.getBlockPosition() );
         connection.entity().setStartBreak( currentTimeMillis );
 
-        Block block = connection.entity().world().blockAt( packet.getPosition() );
+        Block block = connection.entity().world().blockAt( packet.getBlockPosition() );
 
         if ( !block.side(packet.getFace()).punch( connection.entity() ) ) {
             long breakTime = block.finalBreakTime( connection.entity().inventory().itemInHand(), connection.entity() );
@@ -242,7 +242,7 @@ public class PacketPlayerActionHandler implements PacketHandler<PacketPlayerActi
 
             // Tell the client which break time we want
             if ( breakTime > 0 ) {
-                connection.entity().world().sendLevelEvent( packet.getPosition().toVector(),
+                connection.entity().world().sendLevelEvent( packet.getBlockPosition().toVector(),
                     LevelEvent.BLOCK_START_BREAK, (int) ( 65536 / ( breakTime / Values.CLIENT_TICK_MS ) ) );
             }
         }
