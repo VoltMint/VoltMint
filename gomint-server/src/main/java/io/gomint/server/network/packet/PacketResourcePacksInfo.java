@@ -13,6 +13,7 @@ import java.util.List;
 public class PacketResourcePacksInfo extends Packet {
 
     private boolean mustAccept;
+    private boolean forceServerPacks;
     private boolean hasScripts;
     private List<ResourcePack> behaviourPackEntries;
     private List<ResourcePack> resourcePackEntries;
@@ -24,6 +25,7 @@ public class PacketResourcePacksInfo extends Packet {
     @Override
     public void serialize( PacketBuffer buffer, int protocolID ) {
         buffer.writeBoolean( this.mustAccept );
+        buffer.writeBoolean( this.forceServerPacks );
         buffer.writeBoolean( this.hasScripts );
 
         buffer.writeLShort( (short) ( this.behaviourPackEntries == null ? 0 : this.behaviourPackEntries.size() ) );
@@ -57,6 +59,7 @@ public class PacketResourcePacksInfo extends Packet {
     @Override
     public void deserialize( PacketBuffer buffer, int protocolID ) {
         this.mustAccept = buffer.readBoolean();
+        this.forceServerPacks = buffer.readBoolean();
         this.hasScripts = buffer.readBoolean();
 
         short behaviourAmount = buffer.readLShort();
@@ -88,6 +91,14 @@ public class PacketResourcePacksInfo extends Packet {
 
     public void setMustAccept(boolean mustAccept) {
         this.mustAccept = mustAccept;
+    }
+
+    public boolean isForceServerPacks() {
+        return this.forceServerPacks;
+    }
+
+    public void setForceServerPacks(boolean forceServerPacks) {
+        this.forceServerPacks = forceServerPacks;
     }
 
     public boolean isHasScripts() {
