@@ -10,6 +10,8 @@ public class PacketSetTitle extends Packet {
     private int fadeInTime = 0;
     private int stayTime = 0;
     private int fadeOutTime = 0;
+    private String xuid = "";
+    private String platformOnlineID = "";
 
     public PacketSetTitle() {
         super( Protocol.PACKET_SET_TITLE );
@@ -22,6 +24,7 @@ public class PacketSetTitle extends Packet {
         buffer.writeSignedVarInt(this.fadeInTime);
         buffer.writeSignedVarInt(this.stayTime);
         buffer.writeSignedVarInt(this.fadeOutTime);
+        buffer.writeString(this.platformOnlineID);
     }
 
     @Override
@@ -31,6 +34,7 @@ public class PacketSetTitle extends Packet {
         this.fadeInTime = buffer.readSignedVarInt();
         this.stayTime = buffer.readSignedVarInt();
         this.fadeOutTime = buffer.readSignedVarInt();
+        this.platformOnlineID = buffer.readString();
     }
 
     public int getType() {
@@ -71,6 +75,14 @@ public class PacketSetTitle extends Packet {
 
     public void setFadeOutTime(int fadeOutTime) {
         this.fadeOutTime = fadeOutTime;
+    }
+
+    public String getPlatformOnlineID() {
+        return this.platformOnlineID;
+    }
+
+    public void setPlatformOnlineID(String platformOnlineID) {
+        this.platformOnlineID = platformOnlineID;
     }
 
     public enum TitleType {
