@@ -131,7 +131,11 @@ public class PacketPlayerAction extends Packet {
         START_SPIN_ATTACK,
         STOP_SPIN_ATTACK,
 
-        INTERACT_BLOCK;
+        INTERACT_BLOCK,
+        PREDICT_DESTROY_BLOCK,
+        CONTINUE_DESTROY_BLOCK,
+        START_ITEM_USE_ON,
+        STOP_ITEM_USE_ON;
 
         public static PlayerAction valueOf( int actionId ) {
             switch ( actionId ) {
@@ -187,6 +191,14 @@ public class PacketPlayerAction extends Packet {
                     return STOP_SPIN_ATTACK;
                 case 25:
                     return INTERACT_BLOCK;
+                case 26:
+                    return PREDICT_DESTROY_BLOCK;
+                case 27:
+                    return CONTINUE_DESTROY_BLOCK;
+                case 28:
+                    return START_ITEM_USE_ON;
+                case 29:
+                    return STOP_ITEM_USE_ON;
             }
 
             LOGGER.warn( "Unknown action id: {}", actionId );
