@@ -83,10 +83,10 @@ public class PacketPlayerActionHandler implements PacketHandler<PacketPlayerActi
                 }
 
                 // Sanity checks (against crashes)
-                if ( connection.entity().canInteract( packet.getPosition().toVector().add( .5f, .5f, .5f ), 13 ) ) {
+                if ( connection.entity().canInteract( packet.getBlockPosition().toVector().add( .5f, .5f, .5f ), 13 ) ) {
                     PlayerInteractEvent event = connection.server()
                         .pluginManager().callEvent( new PlayerInteractEvent( connection.entity(),
-                            PlayerInteractEvent.ClickType.LEFT, connection.entity().world().blockAt( packet.getPosition() ) ) );
+                            PlayerInteractEvent.ClickType.LEFT, connection.entity().world().blockAt( packet.getBlockPosition() ) ) );
 
                     connection.startBreakResult( !event.cancelled() && connection.entity().startBreak() == 0 );
 
