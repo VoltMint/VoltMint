@@ -23,7 +23,7 @@ public class PacketInteract extends Packet {
         buffer.writeByte( this.action.getId() );
         buffer.writeUnsignedVarLong( this.entityId );
 
-        if ( this.action == InteractAction.MOUSEOVER ) {
+        if ( this.action == InteractAction.MOUSEOVER || this.action == InteractAction.LEAVE_VEHICLE ) {
             writeVector( this.position, buffer );
         }
     }
@@ -33,7 +33,7 @@ public class PacketInteract extends Packet {
         this.action = InteractAction.valueOf( buffer.readByte() );
         this.entityId = buffer.readUnsignedVarLong();
 
-        if ( this.action == InteractAction.MOUSEOVER ) {
+        if ( this.action == InteractAction.MOUSEOVER || this.action == InteractAction.LEAVE_VEHICLE) {
             if ( buffer.getRemaining() > 0 ) {
                 this.position = readVector(buffer);
             } else {
