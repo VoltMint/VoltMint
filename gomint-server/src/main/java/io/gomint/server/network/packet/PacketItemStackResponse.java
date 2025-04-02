@@ -99,11 +99,13 @@ public class PacketItemStackResponse extends Packet {
         private byte slot;
         private byte count;
         private int itemStackId;
+        private int durabilityCorrection;
 
         public StackResponseSlotInfo(byte slot, byte count, int itemStackId) {
             this.slot = slot;
             this.count = count;
             this.itemStackId = itemStackId;
+            this.durabilityCorrection = durabilityCorrection;
         }
 
         @Override
@@ -112,6 +114,7 @@ public class PacketItemStackResponse extends Packet {
                 "\"slot\":\"" + this.slot + "\"" + ", " +
                 "\"count\":\"" + this.count + "\"" + ", " +
                 "\"itemStackId\":\"" + this.itemStackId + "\"" +
+                "\"durabilityCorrection\":\"" + this.durabilityCorrection + "\"" +
                 "}";
         }
     }
@@ -182,6 +185,7 @@ public class PacketItemStackResponse extends Packet {
                         buffer.writeByte(slotInfo.count);
                         buffer.writeSignedVarInt(slotInfo.itemStackId);
                         buffer.writeString("");
+                        buffer.writeSignedVarInt(slotInfo.durabilityCorrection);
                     }
                 }
             } else {
