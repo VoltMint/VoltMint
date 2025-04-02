@@ -1,7 +1,6 @@
 name: Build and Report Errors
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:

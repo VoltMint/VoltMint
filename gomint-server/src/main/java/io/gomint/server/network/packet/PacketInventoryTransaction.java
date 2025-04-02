@@ -167,9 +167,6 @@ public class PacketInventoryTransaction extends Packet {
         private ItemStack<?> oldItem;
         private ItemStack<?> newItem;
 
-        // Itemstack id for the new item (1.16)
-        private int newItemStackID;
-
         /**
          * Deserialize a transaction action
          *
@@ -246,14 +243,6 @@ public class PacketInventoryTransaction extends Packet {
             this.newItem = newItem;
         }
 
-        public int getNewItemStackID() {
-            return this.newItemStackID;
-        }
-
-        public void setNewItemStackID(int newItemStackID) {
-            this.newItemStackID = newItemStackID;
-        }
-
         @Override
         public String toString() {
             return "NetworkTransaction{" +
@@ -263,7 +252,6 @@ public class PacketInventoryTransaction extends Packet {
                 ", slot=" + this.slot +
                 ", oldItem=" + this.oldItem +
                 ", newItem=" + this.newItem +
-                ", newItemStackID=" + this.newItemStackID +
                 '}';
         }
     }
