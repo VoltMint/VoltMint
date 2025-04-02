@@ -124,6 +124,7 @@ public class PacketBossBar extends Packet {
         TITLE( 5 ),
         UNKNOWN( 6 ),
         TEXTURE( 7 );
+        QUERY( 8 );
 
         private final int id;
 
