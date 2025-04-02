@@ -68,6 +68,8 @@ public class PacketStartGame extends Packet {
     // Server stuff
     private String correlationId;
 
+    private String serverSoftwareVersion;
+
     // Lookup tables
     private PacketBuffer blockPalette;
     private PacketBuffer itemPalette;
@@ -159,6 +161,7 @@ public class PacketStartGame extends Packet {
 
         buffer.writeString(this.correlationId);
         buffer.writeBoolean(true); // TODO: use new inventory system
+        buffer.writeString(this.serverSoftwareVersion);
     }
 
     @Override
@@ -245,6 +248,7 @@ public class PacketStartGame extends Packet {
 
         buffer.readString();
         buffer.readBoolean();
+        buffer.readString();
     }
 
     public long getEntityId() {
@@ -549,6 +553,14 @@ public class PacketStartGame extends Packet {
 
     public void setCorrelationId(String correlationId) {
         this.correlationId = correlationId;
+    }
+
+    public String getServerSoftwareVersion() {
+        return this.serverSoftwareVersion;
+    }
+
+    public void setServerSoftwareVersion(String serverSoftwareVersion) {
+        this.serverSoftwareVersion = serverSoftwareVersion;
     }
 
     public PacketBuffer getBlockPalette() {
