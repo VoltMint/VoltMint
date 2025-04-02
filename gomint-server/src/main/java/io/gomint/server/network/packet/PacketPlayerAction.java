@@ -18,7 +18,8 @@ public class PacketPlayerAction extends Packet {
     private long entityId;
 
     private PlayerAction action;
-    private BlockPosition position;
+    private BlockPosition blockPosition;
+    private BlockPosition resultPosition;
 
     private Facing face;
 
@@ -37,7 +38,8 @@ public class PacketPlayerAction extends Packet {
     public void deserialize( PacketBuffer buffer, int protocolID ) {
         this.entityId = buffer.readUnsignedVarLong();
         this.action = PlayerAction.valueOf( buffer.readSignedVarInt() );
-        this.position = readBlockPosition( buffer );
+        this.blockPosition = readBlockPosition( buffer );
+        this.resultPosition = readBlockPosition( buffer );
         this.face = readBlockFace( buffer );
     }
 
@@ -57,12 +59,20 @@ public class PacketPlayerAction extends Packet {
         this.action = action;
     }
 
-    public BlockPosition getPosition() {
-        return this.position;
+    public BlockPosition getBlockPosition() {
+        return this.blockPosition;
     }
 
-    public void setPosition(BlockPosition position) {
-        this.position = position;
+    public void setBlockPosition(BlockPosition blockPosition) {
+        this.blockPosition = blockPosition;
+    }
+
+    public BlockPosition getResultPosition() {
+        return this.resultPosition;
+    }
+
+    public void setResultPosition() {
+        this.resultPosition = resultPosition;
     }
 
     public Facing getFace() {
@@ -78,7 +88,8 @@ public class PacketPlayerAction extends Packet {
         return "PacketPlayerAction{" +
             "entityId=" + this.entityId +
             ", action=" + this.action +
-            ", position=" + this.position +
+            ", blockPosition=" + this.blockPosition +
+            ", resultPosition=" + this.resultPosition +
             ", face=" + this.face +
             '}';
     }
