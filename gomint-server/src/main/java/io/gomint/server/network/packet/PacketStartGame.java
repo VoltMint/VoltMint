@@ -72,6 +72,7 @@ public class PacketStartGame extends Packet {
 
     // Lookup tables
     private PacketBuffer blockPalette;
+    private long blockPaletteChecksum;
     private PacketBuffer itemPalette;
 
     /**
@@ -155,13 +156,13 @@ public class PacketStartGame extends Packet {
         // Write palette data
         buffer.writeUnsignedVarInt(0);
         // buffer.writeBytes(this.blockPalette.getBuffer().asReadOnly().readerIndex(0));
-
         // Item table
         buffer.writeBytes(this.itemPalette.getBuffer().asReadOnly().readerIndex(0));
 
         buffer.writeString(this.correlationId);
         buffer.writeBoolean(true); // TODO: use new inventory system
         buffer.writeString(this.serverSoftwareVersion);
+        buffer.writeLLong(this.blockPaletteChecksum);
     }
 
     @Override
@@ -249,6 +250,7 @@ public class PacketStartGame extends Packet {
         buffer.readString();
         buffer.readBoolean();
         buffer.readString();
+        buffer.readLLong();
     }
 
     public long getEntityId() {
@@ -561,6 +563,14 @@ public class PacketStartGame extends Packet {
 
     public void setServerSoftwareVersion(String serverSoftwareVersion) {
         this.serverSoftwareVersion = serverSoftwareVersion;
+    }
+
+    public long getBlockPaletteChecksum() {
+        return this.blockPaletteChecksum;
+    }
+
+    public void setBlockPaletteChecksum(long blockPaletteChecksum) {
+        this.blockPaletteChecksum = blockPaletteChecksum;
     }
 
     public PacketBuffer getBlockPalette() {
