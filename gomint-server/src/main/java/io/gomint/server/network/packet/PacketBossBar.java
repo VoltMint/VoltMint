@@ -39,8 +39,10 @@ public class PacketBossBar extends Packet {
             case SHOW:
                 buffer.writeString( this.title );
                 buffer.writeLFloat( this.healthPercent );
+                break;
             case UNKNOWN:
                 buffer.writeShort( (short) 0 );
+                break;
             case TEXTURE:
                 buffer.writeUnsignedVarInt( this.color );
                 buffer.writeUnsignedVarInt( this.overlay );
@@ -123,7 +125,7 @@ public class PacketBossBar extends Packet {
         HEALTH_UPDATE( 4 ),
         TITLE( 5 ),
         UNKNOWN( 6 ),
-        TEXTURE( 7 );
+        TEXTURE( 7 ),
         QUERY( 8 );
 
         private final int id;
