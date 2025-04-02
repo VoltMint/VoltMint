@@ -141,7 +141,7 @@ public final class ReportUploader {
         }
 
         // Check for plugin crashes
-        BacktraceConfig config = new BacktraceConfig("https://submit.backtrace.io/gomint/f66ad8232bdb6e07049c878ceb95b9d8bc74a2eeba663de5135d73d8b0db91ff/json");
+        BacktraceConfig config = new BacktraceConfig("https://submit.backtrace.io/voltmint/de543dd5dc48a479e0018ca75d45966ef07f54c90437d602fc6076bdef52e28a/json");
         BacktraceClient client = new BacktraceClient(config);
         client.setApplicationName("GoMint");
         client.setApplicationVersion(((GoMintServer) GoMint.instance()).gitHash());
@@ -156,7 +156,6 @@ public final class ReportUploader {
                         data.getAttributes().put("plugin", plugin);
                     }
                 }
-
                 return data;
             });
 
