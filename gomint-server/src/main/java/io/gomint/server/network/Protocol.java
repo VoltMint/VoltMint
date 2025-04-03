@@ -59,8 +59,8 @@ public final class Protocol {
     // MC:PE Protocol ID
     public static final int MINECRAFT_PE_BETA_PROTOCOL_VERSION = -1;
     public static final int MINECRAFT_PE_NEXT_STABLE_PROTOCOL_VERSION = -1;
-    public static final int MINECRAFT_PE_PROTOCOL_VERSION = 431;
-    public static final String MINECRAFT_PE_NETWORK_VERSION = "1.16.220";
+    public static final int MINECRAFT_PE_PROTOCOL_VERSION = 786;
+    public static final String MINECRAFT_PE_NETWORK_VERSION = "1.21.7@0";
 
     // ========================================= PACKET IDS ========================================= //
     public static final byte BATCH_MAGIC = (byte) 0xfe;
@@ -218,7 +218,13 @@ public final class Protocol {
     public static final int PACKET_POS_TRACKING_CLIENT_REQUEST =  0x9a;
     public static final int PACKET_DEBUG_INFO =  0x9b;
     public static final int PACKET_VIOLATION_WARNING =  0x9c;
-    public static final int PACKET_ITEM_COMPONENT = 0xA2;
+    public static final int PACKET_ITEM_COMPONENT = 0xa2;
+    public static final int PACKET_UPDATE_ABILITIES_PACKET = 0xbb;
+    public static final int PACKET_UPDATE_ADVENTURE_SETTINGS = 0xbc;
+    public static final int PACKET_DEATH_INFO = 0xbd;
+    public static final int PACKET_EDITOR_PACKET = 0xbe;
+    
+    
     // CHECKSTYLE:ON
 
     // ========================================= PACKET METHODS ========================================= //
@@ -236,6 +242,9 @@ public final class Protocol {
      */
     public static Packet createPacket(int id) {
         switch (id) {
+            case PACKET_LOGIN:
+                return new PacketLogin();
+
             case PACKET_ITEM_STACK_REQUEST:
                 return new PacketItemStackRequest();
 
@@ -283,9 +292,6 @@ public final class Protocol {
 
             case PACKET_HOTBAR:
                 return new PacketHotbar();
-
-            case PACKET_LOGIN:
-                return new PacketLogin();
 
             case PACKET_PLAY_STATE:
                 return new PacketPlayState();
@@ -349,6 +355,15 @@ public final class Protocol {
 
             case PACKET_RESPAWN_POSITION:
                 return new PacketRespawnPosition();
+
+            case PACKET_ITEM_COMPONENT:
+                return new PacketItemComponent();
+
+            case PACKET_DEATH_INFO:
+                return new PacketDeathInfo();
+
+            case PACKET_EDITOR_NETWORK:
+                return new PacketEditorNetwork();
 
             default:
                 // LOGGER.warn( "Unknown client side packetId: {}", Integer.toHexString( id & 0xFF ) );
