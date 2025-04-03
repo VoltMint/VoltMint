@@ -41,7 +41,7 @@ public class Bootstrap {
         try {
             bootstrap(args);
         } catch (Exception cause) {
-            LOGGER.error("GoMint crashed: ", cause);
+            LOGGER.error("VoltMint crashed: ", cause);
             reportExceptionToSentry(cause);
         } 
     }
@@ -99,7 +99,7 @@ public class Bootstrap {
     }
 
     private static void assignCustomHTTPAgent() {
-        System.setProperty("http.agent", "GoMint/1.0");
+        System.setProperty("http.agent", "VoltMint/1.0");
     }
 
     private static OptionSet parseCommandLineOptions(String[] args) {
