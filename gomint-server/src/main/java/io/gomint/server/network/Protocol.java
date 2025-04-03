@@ -19,7 +19,9 @@ import io.gomint.server.network.packet.PacketClientCacheStatus;
 import io.gomint.server.network.packet.PacketCommandRequest;
 import io.gomint.server.network.packet.PacketContainerClose;
 import io.gomint.server.network.packet.PacketCraftingEvent;
+import io.gomint.server.network.packet.PacketDeathInfo;
 import io.gomint.server.network.packet.PacketDisconnect;
+import io.gomint.server.network.packet.PacketEditorNetwork;
 import io.gomint.server.network.packet.PacketEmoteList;
 import io.gomint.server.network.packet.PacketEncryptionResponse;
 import io.gomint.server.network.packet.PacketEntityEvent;
@@ -28,6 +30,7 @@ import io.gomint.server.network.packet.PacketEntityMetadata;
 import io.gomint.server.network.packet.PacketHotbar;
 import io.gomint.server.network.packet.PacketInteract;
 import io.gomint.server.network.packet.PacketInventoryTransaction;
+import io.gomint.server.network.packet.PacketItemComponent;
 import io.gomint.server.network.packet.PacketItemStackRequest;
 import io.gomint.server.network.packet.PacketLogin;
 import io.gomint.server.network.packet.PacketMobEquipment;
@@ -222,7 +225,7 @@ public final class Protocol {
     public static final int PACKET_UPDATE_ABILITIES_PACKET = 0xbb;
     public static final int PACKET_UPDATE_ADVENTURE_SETTINGS = 0xbc;
     public static final int PACKET_DEATH_INFO = 0xbd;
-    public static final int PACKET_EDITOR_PACKET = 0xbe;
+    public static final int PACKET_EDITOR_NETWORK = 0xbe;
     
     
     // CHECKSTYLE:ON
