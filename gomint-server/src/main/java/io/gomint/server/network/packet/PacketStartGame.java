@@ -211,6 +211,219 @@ public class PacketStartGame extends Packet {
         this.hasStartWithMapEnabled = buffer.readBoolean();
 
         this.defaultPlayerPermission = buffer.readSignedVarInt();
+package io.gomint.server.network.packet;
+
+import io.gomint.jraknet.PacketBuffer;
+import io.gomint.math.Location;
+import io.gomint.server.network.Protocol;
+import io.gomint.server.player.PlayerPermission;
+import io.gomint.taglib.NBTTagCompound;
+import io.gomint.world.Gamerule;
+
+import java.util.Map;
+
+/**
+ * @author geNAZt
+ * @version 1.0
+ */
+public class PacketStartGame extends Packet {
+
+    public static final short BIOME_TYPE_DEFAULT = 0;
+    public static final short BIOME_TYPE_USER_DEFINED = 1;
+
+    // Entity data
+    private long entityId;
+    private long runtimeEntityId;
+    private int gamemode;
+    private Location location;
+
+    // Level data
+    private int seed;
+
+    private short biomeType;
+    private String biomeName;
+    private int dimension;
+    private Location spawn;
+
+    private int generator;
+    private int worldGamemode;
+    private int difficulty;
+    private boolean hasAchievementsDisabled = true;
+    private int dayCycleStopTime;
+    private int eduEditionOffer;
+    private float rainLevel;
+    private float lightningLevel;
+    private boolean isMultiplayerGame = true;
+    private boolean hasLANBroadcast = true;
+    private boolean hasXboxLiveBroadcast = false;
+    private boolean commandsEnabled;
+    private boolean isTexturePacksRequired;
+
+    // Gamerule data
+    private Map<Gamerule<?>, Object> gamerules;
+    private boolean hasBonusChestEnabled;
+    private boolean hasStartWithMapEnabled;
+    private boolean hasTrustPlayersEnabled;
+    private int defaultPlayerPermission = PlayerPermission.MEMBER.id();
+    private int xboxLiveBroadcastMode = 0;
+    private boolean hasPlatformBroadcast = false;
+    private int platformBroadcastMode = 0;
+    private boolean xboxLiveBroadcastIntent = false;
+
+    private NBTTagCompound playerActorProperties;
+    private String worldTemplateId;
+
+    // World data
+    private String levelId;
+    private String worldName;
+    private String templateId;
+    private boolean isTrial;
+    private boolean movementServerAuthoritative;
+    private long currentTick;
+    private int enchantmentSeed;
+
+    // Server stuff
+    private String correlationId;
+    private String serverSoftwareVersion;
+
+    // Lookup tables
+    private PacketBuffer blockPalette;
+    private long blockPaletteChecksum;
+    private PacketBuffer itemPalette;
+
+    /**
+     * Create a new start game packet
+     */
+    public PacketStartGame() {
+        super(Protocol.PACKET_START_GAME);
+    }
+
+    @Override
+    public void serialize(PacketBuffer buffer, int protocolID) {
+        buffer.writeSignedVarLong(this.entityId);
+        buffer.writeUnsignedVarLong(this.runtimeEntityId);
+        buffer.writeSignedVarInt(this.gamemode);
+        buffer.writeLFloat(this.location.x());
+        buffer.writeLFloat(this.location.y());
+        buffer.writeLFloat(this.location.z());
+        buffer.writeLFloat(this.location.yaw());
+        buffer.writeLFloat(this.location.pitch());
+
+        buffer.writeSignedVarInt(this.seed);
+        buffer.writeLShort(this.biomeType);
+        buffer.writeString(this.biomeName);
+        buffer.writeSignedVarInt(this.dimension);
+        buffer.writeSignedVarInt(this.generator);
+        buffer.writeSignedVarInt(this.worldGamemode);
+        buffer.writeSignedVarInt(this.difficulty);
+        buffer.writeSignedVarInt((int) this.spawn.x());
+        buffer.writeUnsignedVarInt((int) this.spawn.y());
+        buffer.writeSignedVarInt((int) this.spawn.z());
+        buffer.writeBoolean(this.hasAchievementsDisabled);
+        buffer.writeSignedVarInt(this.dayCycleStopTime);
+        buffer.writeSignedVarInt(this.eduEditionOffer);
+        buffer.writeBoolean(true);
+        buffer.writeString("");
+        buffer.writeLFloat(this.rainLevel);
+        buffer.writeLFloat(this.lightningLevel);
+        buffer.writeBoolean(false);
+        buffer.writeBoolean(this.isMultiplayerGame);
+        buffer.writeBoolean(this.hasLANBroadcast);
+        buffer.writeSignedVarInt(3);
+        buffer.writeSignedVarInt(3);
+        buffer.writeBoolean(this.commandsEnabled);
+        buffer.writeBoolean(this.isTexturePacksRequired);
+        writeGamerules(this.gamerules, buffer);
+
+        buffer.writeInt(0);
+        buffer.writeBoolean(false);
+
+        buffer.writeBoolean(this.hasBonusChestEnabled);
+        buffer.writeBoolean(this.hasStartWithMapEnabled);
+        buffer.writeSignedVarInt(this.defaultPlayerPermission);
+        buffer.writeInt(32);
+        buffer.writeBoolean(false);
+        buffer.writeBoolean(false);
+        buffer.writeBoolean(false);
+        buffer.writeBoolean(false);
+        buffer.writeBoolean(false);
+        buffer.writeBoolean(false);
+        buffer.writeBoolean(false);
+
+        buffer.writeString(Protocol.MINECRAFT_PE_NETWORK_VERSION);
+        buffer.writeLInt(0);
+        buffer.writeLInt(0);
+        buffer.writeBoolean(false);
+        buffer.writeBoolean(false);
+
+        buffer.writeString(this.levelId);
+        buffer.writeString(this.worldName);
+        buffer.writeString(this.templateId);
+        buffer.writeString(this.worldTemplateId);
+        buffer.writeBoolean(this.isTrial);
+        buffer.writeUnsignedVarInt(0);
+        buffer.writeLLong(this.currentTick);
+        buffer.writeSignedVarInt(this.enchantmentSeed);
+
+        if (this.playerActorProperties != null) {
+            buffer.writeBytes(this.playerActorProperties.toByteArray());
+        } else {
+            buffer.writeBytes(new byte[0]);
+        }
+
+        buffer.writeUnsignedVarInt(0);
+        buffer.writeBytes(this.itemPalette.getBuffer().asReadOnly().readerIndex(0));
+
+        buffer.writeString(this.correlationId);
+        buffer.writeBoolean(true);
+        buffer.writeString(this.serverSoftwareVersion);
+        buffer.writeLLong(this.blockPaletteChecksum);
+    }
+
+    @Override
+    public void deserialize(PacketBuffer buffer, int protocolID) {
+        this.entityId = buffer.readSignedVarLong().longValue();
+        this.runtimeEntityId = buffer.readUnsignedVarLong();
+        this.gamemode = buffer.readSignedVarInt();
+
+        this.spawn = new Location(null, buffer.readLFloat(), buffer.readLFloat(), buffer.readLFloat(), buffer.readLFloat(), buffer.readLFloat());
+
+        this.seed = buffer.readSignedVarInt();
+        this.biomeType = buffer.readLShort();
+        this.biomeName = buffer.readString();
+        this.dimension = buffer.readSignedVarInt();
+
+        this.generator = buffer.readSignedVarInt();
+        this.worldGamemode = buffer.readSignedVarInt();
+        this.difficulty = buffer.readSignedVarInt();
+
+        int spawnX = buffer.readSignedVarInt();
+        int spawnY = buffer.readSignedVarInt();
+        int spawnZ = buffer.readSignedVarInt();
+
+        this.hasAchievementsDisabled = buffer.readBoolean();
+        this.dayCycleStopTime = buffer.readSignedVarInt();
+        this.eduEditionOffer = buffer.readSignedVarInt();
+        buffer.readBoolean();
+        buffer.readString();
+        this.rainLevel = buffer.readLFloat();
+        this.lightningLevel = buffer.readLFloat();
+        buffer.readBoolean();
+        this.isMultiplayerGame = buffer.readBoolean();
+        this.hasLANBroadcast = buffer.readBoolean();
+        buffer.readSignedVarInt();
+        buffer.readSignedVarInt();
+        this.commandsEnabled = buffer.readBoolean();
+        this.isTexturePacksRequired = buffer.readBoolean();
+        this.gamerules = readGamerules(buffer);
+
+        buffer.readInt();
+        buffer.readBoolean();
+
+        this.hasBonusChestEnabled = buffer.readBoolean();
+        this.hasStartWithMapEnabled = buffer.readBoolean();
+
+        this.defaultPlayerPermission = buffer.readSignedVarInt();
         buffer.readInt();
         buffer.readBoolean();
         buffer.readBoolean();
@@ -232,16 +445,22 @@ public class PacketStartGame extends Packet {
 
         this.levelId = buffer.readString();
         this.worldName = buffer.readString();
-        buffer.readString();
+        this.templateId = buffer.readString();
+        this.worldTemplateId = buffer.readString();
         buffer.readBoolean();
         buffer.readUnsignedVarInt();
         this.currentTick = buffer.readLLong();
         this.enchantmentSeed = buffer.readSignedVarInt();
 
+        byte[] actorPropertiesData = buffer.readBytes(buffer.getRemaining());
+        if (actorPropertiesData.length > 0) {
+            this.playerActorProperties = NBTTagCompound.fromBytes(actorPropertiesData);
+        }
+
         buffer.readUnsignedVarInt();
 
         int itemPaletteAmount = buffer.readUnsignedVarInt();
-        for ( int i = 0; i < itemPaletteAmount; i++ ) {
+        for (int i = 0; i < itemPaletteAmount; i++) {
             buffer.readString();
             buffer.readLShort();
             buffer.readBoolean();
@@ -251,6 +470,22 @@ public class PacketStartGame extends Packet {
         buffer.readBoolean();
         buffer.readString();
         buffer.readLLong();
+    }
+
+    public NBTTagCompound getPlayerActorProperties() {
+        return playerActorProperties;
+    }
+
+    public void setPlayerActorProperties(NBTTagCompound playerActorProperties) {
+        this.playerActorProperties = playerActorProperties;
+    }
+
+    public String getWorldTemplateId() {
+        return worldTemplateId;
+    }
+
+    public void setWorldTemplateId(String worldTemplateId) {
+        this.worldTemplateId = worldTemplateId;
     }
 
     public long getEntityId() {
