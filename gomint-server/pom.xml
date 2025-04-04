@@ -154,6 +154,12 @@
             <artifactId>asm</artifactId>
             <version>8.0.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>xyz.voltmint</groupId>
+            <artifactId>jraknet</artifactId>
+            <version>7.0.11-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
