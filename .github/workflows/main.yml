@@ -19,6 +19,8 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean package
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Prepare Release Directory
         run: |
