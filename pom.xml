@@ -62,7 +62,7 @@
             </releases>
         </repository>
         <repository>
-            <id>central</id>
+            <id>github</id>
             <url>https://maven.pkg.github.com/VoltMint/jRakNet</url>
             <releases>
                 <enabled>true</enabled>
