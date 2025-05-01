@@ -8,6 +8,7 @@
 package io.gomint.server.network;
 
 import io.gomint.server.network.packet.Packet;
+import io.gomint.server.network.packet.PacketAddVolumeEntity;
 import io.gomint.server.network.packet.PacketAdventureSettings;
 import io.gomint.server.network.packet.PacketAnimate;
 import io.gomint.server.network.packet.PacketBatch;
@@ -35,6 +36,7 @@ import io.gomint.server.network.packet.PacketModalResponse;
 import io.gomint.server.network.packet.PacketMovePlayer;
 import io.gomint.server.network.packet.PacketPlayState;
 import io.gomint.server.network.packet.PacketPlayerAction;
+import io.gomint.server.network.packet.PacketRemoveVolumeEntity;
 import io.gomint.server.network.packet.PacketRequestChunkRadius;
 import io.gomint.server.network.packet.PacketResourcePackResponse;
 import io.gomint.server.network.packet.PacketResourcePacksInfo;
@@ -59,8 +61,8 @@ public final class Protocol {
     // MC:PE Protocol ID
     public static final int MINECRAFT_PE_BETA_PROTOCOL_VERSION = -1;
     public static final int MINECRAFT_PE_NEXT_STABLE_PROTOCOL_VERSION = -1;
-    public static final int MINECRAFT_PE_PROTOCOL_VERSION = 431;
-    public static final String MINECRAFT_PE_NETWORK_VERSION = "1.16.220";
+    public static final int MINECRAFT_PE_PROTOCOL_VERSION = 440;
+    public static final String MINECRAFT_PE_NETWORK_VERSION = "1.17.0";
 
     // ========================================= PACKET IDS ========================================= //
     public static final byte BATCH_MAGIC = (byte) 0xfe;
@@ -218,7 +220,12 @@ public final class Protocol {
     public static final int PACKET_POS_TRACKING_CLIENT_REQUEST =  0x9a;
     public static final int PACKET_DEBUG_INFO =  0x9b;
     public static final int PACKET_VIOLATION_WARNING =  0x9c;
-    public static final int PACKET_ITEM_COMPONENT = 0xA2;
+    public static final int PACKET_ITEM_COMPONENT = 0xa2;
+    public static final int PACKET_FILTER_TEXT = 0xa3;
+    public static final int PACKET_SYNC_ACTOR_PROPERTY = 0xa5;
+    public static final int PACKET_ADD_VOLUME_ENTITY = 0xa6;
+    public static final int PACKET_REMOVE_VOLUME_ENTITY = 0xa7;
+    
     // CHECKSTYLE:ON
 
     // ========================================= PACKET METHODS ========================================= //
@@ -349,6 +356,15 @@ public final class Protocol {
 
             case PACKET_RESPAWN_POSITION:
                 return new PacketRespawnPosition();
+
+            case PACKET_SYNC_ACTOR_PROPERTY:
+                return new PacketSyncActorProperty();
+
+            case PACKET_ADD_VOLUME_ENTITY:
+                return new PacketAddVolumeEntity();
+
+            case PACKET_REMOVE_VOLUME_ENTITY:
+                return new PacketRemoveVolumeEntity();
 
             default:
                 // LOGGER.warn( "Unknown client side packetId: {}", Integer.toHexString( id & 0xFF ) );
