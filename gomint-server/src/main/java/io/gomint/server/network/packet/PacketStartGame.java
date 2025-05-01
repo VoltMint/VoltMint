@@ -68,7 +68,7 @@ public class PacketStartGame extends Packet {
     // Server stuff
     private String correlationId;
 
-    private String $serverSoftwareVersion;
+    private String serverSoftwareVersion;
 
     // Lookup tables
     private PacketBuffer blockPalette;
